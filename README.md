@@ -25,23 +25,47 @@ source .venv/bin/activate   # macOS / Linux
 pip install -r requirements.txt
 ```
 
-### 4. Create .env file
+### 4. Create .env file, using .env_default as a template
 ```bash
-APP_SESSION_SECRET=Random String
+PYTHON_VER=3.14 # Increment with newer releases
 
-CLIENT_ID=Supplied by OIDC Client
-CLIENT_SECRET=Supplied when creating OIDC client
-REDIRECT_URI=Set when creating OIDC client
+APP_SESSION_SECRET=<value> # 32 char random string
 
-TOKEN_ENDPOINT=
-DISCOVERY_URL=
+CLIENT_ID=<client_id>
+CLIENT_SECRET=<client_secret>
+REDIRECT_URI=http://localhost/authenticate # Matches the redirect URI registered with the OIDC OP.
+
+TOKEN_ENDPOINT=https://<OIDC_OP_URL>/oauth2/token
+DISCOVERY_URL=https://<OIDC_OP_URL>/.well-known/openid-configuration
 
 ```
+Update the .env file replacing <values> with suitable values.
+
+PYTHON_VER: Select a suitable "slim" Python image "version" from https://hub.docker.com/_/python/tags?name=slim - only used by Docker
+
 APP_SESSION_SECRET: A random string used by Flask for session encryption.
 
-CLIENT_ID / CLIENT_SECRET: Provided when registering your application with your OIDC provider.
+CLIENT_ID: Client ID when registering the application with the OIDC provider.
 
-REDIRECT_URI: Must match the redirect URI registered with your OIDC client.
+CLIENT_SECRET: Client secret when registering the application with the OIDC provider.
 
-TOKEN_ENDPOINT / DISCOVERY_URL: Found in your OIDC provider’s metadata (e.g., /.well-known/openid-configuration).
+REDIRECT_URI: Matches the redirect URI registered with the OIDC OP.
 
+TOKEN_ENDPOINT: From OIDC OP .well-known/openid-configuration
+
+DISCOVERY_URL: OIDC OP .well-known/openid-configuration
+
+## To run as a Dockerise flask app
+After adding details to .env file.
+
+To start container
+```
+make up
+```
+
+The Flask app logs to console, press CTRL+C to quit.
+
+To stop container
+```
+make down
+```
