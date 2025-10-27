@@ -1,0 +1,19 @@
+name: flask
+services:
+  python:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      args:
+      - PYTHON_VER=${PYTHON_VER:-latest}
+    container_name : flask
+    image: flask-app:python-${PYTHON_VER:-latest}
+    volumes:
+      - ./static:/app/static
+      - ./templates:/app/templates
+      - ./Terms.iml:/app/Terms.iml
+      - ./main.py:/app/main.py
+      - ./.env:/app/.env
+    ports:
+    - 80:5000
+
