@@ -15,5 +15,5 @@ services:
       - ./main.py:/app/main.py
       - ./.env:/app/.env
     ports:
-    - 80:5000
+    - ${HTTP_PORT}:5000
 

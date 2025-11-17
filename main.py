@@ -16,7 +16,7 @@ CLIENT_SECRET = os.getenv("CLIENT_SECRET")
 REDIRECT_URI = os.getenv("REDIRECT_URI")
 TOKEN_ENDPOINT = os.getenv("TOKEN_ENDPOINT")
 DISCOVERY_URL = os.getenv("DISCOVERY_URL")
-TERMS_URL = "https://registry-dev.biocommons.org.au/registry/CoTermsAndConditions/display/4"
+TERMS_URL = os.getenv("TERMS_URL")
 
 oauth = OAuth(app)
 
